@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">timesrunningout</string>
+    <string name="play">Play</string>
+    <string name="time_is_running_out">Time is running out!</string>
 </resources>
