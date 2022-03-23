@@ -5,10 +5,10 @@ public class Game {
 
     private List<String> mWords; //Words that are being played with
     private List<Boolean> mGuessed; //mGuessed[i] is True if mWords[i] has been guessed
-    private List<int> mTeamResults; //mTeamResults[0] stores the result of team 1, mTeamResults[1] stores the result of team 2
+    private List<Integer> mTeamResults; //mTeamResults[0] stores the result of team 1, mTeamResults[1] stores the result of team 2
     private int mCurrentInt;
 
-    public Game(List<String> words, List<Boolean> guessed, List<int> teamResults, int currentInt) {
+    public Game(List<String> words, List<Boolean> guessed, List<Integer> teamResults, int currentInt) {
         mWords = words;
         mGuessed = guessed;
         mTeamResults = teamResults;
@@ -31,11 +31,11 @@ public class Game {
         mGuessed = guessed;
     }
 
-    public List<int> getTeamResults() {
+    public List<Integer> getTeamResults() {
         return mTeamResults;
     }
 
-    public void setTeamResults(List<int> teamResults) {
+    public void setTeamResults(List<Integer> teamResults) {
         mTeamResults = teamResults;
     }
 
