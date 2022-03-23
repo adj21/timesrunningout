@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private Button mButtonPlay;
+    private Button mPlayButton;
     //TODO: Button for custom game
 
     @Override
@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mButtonPlay = (Button) findViewById(R.id.buttonPlay);
-        mButtonPlay.setOnClickListener(new View.OnClickListener() {
+        mPlayButton = (Button) findViewById(R.id.play_button);
+        mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                Intent i = new Intent(MainActivity.this, RoundActivity.class);

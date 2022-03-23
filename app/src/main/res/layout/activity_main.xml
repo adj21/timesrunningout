@@ -24,7 +24,7 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/imageedit_2_4380084509" />
     <Button
-        android:id="@+id/buttonPlay"
+        android:id="@+id/play_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
