@@ -6,13 +6,13 @@ public class Game {
     private List<String> mWords; //Words that are being played with
     private List<Boolean> mGuessed; //mGuessed[i] is True if mWords[i] has been guessed
     private List<Integer> mTeamResults; //mTeamResults[0] stores the result of team 1, mTeamResults[1] stores the result of team 2
-    private int mCurrentInt;
+    private int mCurrentTeam;
 
     public Game(List<String> words, List<Boolean> guessed, List<Integer> teamResults, int currentInt) {
         mWords = words;
         mGuessed = guessed;
         mTeamResults = teamResults;
-        mCurrentInt = currentInt;
+        mCurrentTeam = currentInt;
     }
 
     public List<String> getWords() {
@@ -40,10 +40,10 @@ public class Game {
     }
 
     public int getCurrentInt() {
-        return mCurrentInt;
+        return mCurrentTeam;
     }
 
     public void setCurrentInt(int currentInt) {
-        mCurrentInt = currentInt;
+        mCurrentTeam = currentInt;
     }
 }
