@@ -7,6 +7,8 @@ public class Game {
     private List<Boolean> mGuessed; //mGuessed[i] is True if mWords[i] has been guessed
     private List<Integer> mTeamResults; //mTeamResults[0] stores the result of team 1, mTeamResults[1] stores the result of team 2
     private int mCurrentRound;
+    //might need a current int to know which word we are on
+    //might need a currentTeam number
 
     public Game(List<String> words) {
         mWords = words;
