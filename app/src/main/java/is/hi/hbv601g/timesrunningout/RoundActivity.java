@@ -6,21 +6,30 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import java.util.Arrays;
-import java.util.List;
+import com.google.gson.Gson;
+
+import java.util.*;
 
 public class RoundActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPref;
-    Game game;
-    private List<String> mWords = new Array("butterfly","tea","cup","flower")
+    SharedPreferences mSharedPref;
+    Game mGame;
+    private List<String> mWords = Arrays.asList("Butterfly", "cup", "tea", "tree");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round);
-        Context context = RoundActivity.this
-        sharedPref = context.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
-        game = new Game()
+        Context context = RoundActivity.this;
+        mSharedPref = context.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
+        Game mGame = new Game(mWords);
+
+        SharedPreferences.Editor prefsEditor = mSharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(mGame); //change the Game object into a String
+        prefsEditor.putString("Game", json); //put the String into the shared preferences
+        prefsEditor.commit();
+
+
     }
 }

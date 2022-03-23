@@ -1,5 +1,5 @@
 package is.hi.hbv601g.timesrunningout;
-import java.util.List;
+import java.util.*;
 
 public class Game {
 
@@ -8,11 +8,18 @@ public class Game {
     private List<Integer> mTeamResults; //mTeamResults[0] stores the result of team 1, mTeamResults[1] stores the result of team 2
     private int mCurrentRound;
 
-    public Game(List<String> words, List<Boolean> guessed, List<Integer> teamResults, int currentInt) {
+    public Game(List<String> words) {
         mWords = words;
+
+        List<Boolean> guessed = new ArrayList<Boolean>(Arrays.asList(new Boolean[mWords.size()]));
+        Collections.fill(guessed, Boolean.FALSE); //set the guessed values as false for the beginning of the game
+
         mGuessed = guessed;
+
+        List<Integer> teamResults = Arrays.asList(0,0);//initialize the score at 0
+
         mTeamResults = teamResults;
-        mCurrentRound = currentInt;
+        mCurrentRound = 1;//we start at round 1
     }
 
     public List<String> getWords() {
