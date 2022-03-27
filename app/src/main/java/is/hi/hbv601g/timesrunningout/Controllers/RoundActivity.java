@@ -43,6 +43,10 @@ public class RoundActivity extends AppCompatActivity {
 
         setRoundText(mGame.getCurrentRound());
 
+        int result = mGame.getTeamResults().get(0);
+        Log.d("RoundActivity", "team 1:"+ Integer.toString(result));
+        Log.d("RoundActivity", "team 2:"+ Integer.toString(mGame.getTeamResults().get(1)));
+
         mStartTurnButton = (Button) findViewById(R.id.StartTurn_button);
         mStartTurnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +71,5 @@ public class RoundActivity extends AppCompatActivity {
                 mTextViewRound.setText(R.string.round_3);
                 break;
         }
-        Log.d("RoundActivity", (String) mTextViewRound.getText());
     }
 }
