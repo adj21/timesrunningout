@@ -24,14 +24,17 @@ public class TurnActivity extends AppCompatActivity {
     private Button mNext;//need to code this to alternate playing team, invisible when timer running
 
     private TextView mWord;
-    private CountDownTimer mTime;
-    private long mTimeLeft = 30000; // 30 seconds
-   // private TextView mTimerLeft;
     private TextView mTimerText;
-    private boolean mTimerRunning;
-    private Button mNextButton;
-    private WordService mWordService = new WordService();
     private TextView countdownText;
+
+    private CountDownTimer mCountDownTimer;
+    private long mTimeLeft = 30000; // 30 seconds
+
+    private boolean mTimerRunning;
+
+
+    private WordService mWordService = new WordService();
+
 
     private SharedPreferences mSharedPref;
     private Game mGame;
@@ -44,10 +47,11 @@ public class TurnActivity extends AppCompatActivity {
         setContentView(R.layout.activity_turn);
         startTimer();
 
-        countdownText = findViewById(R.id.mTime);
+        countdownText = findViewById(R.id.countdown_text);
+        mWord = findViewById(R.id.mWord);
         mValidateButton = findViewById(R.id.countdown_button);
         mSkipButton = findViewById(R.id.countdown_button2);
-        mWord = (TextView) findViewById(R.id.mWord);
+
 
         Context context = TurnActivity.this;
         mSharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -78,10 +82,11 @@ public class TurnActivity extends AppCompatActivity {
         });
 
         public void startTimer() {
-            countDownTimer = new CountDownTimer(mTimeLeft, 1000) {
+            mCountDownTimer = new CountDownTimer(mTimeLeft, 1000) {
                 @Override
                 public void onTick(long l) {
                     mTimeLeft = l;
+                    updateTimer();
                 }
 
                 @Override
@@ -93,6 +98,16 @@ public class TurnActivity extends AppCompatActivity {
             mTimerRunning = true;
         }
 
+        public void updateTimer() {
+            int seconds = (int) mTimeLeft % 30000 / 1000;
+
+            String mTimeLeftText = "";
+
+            if (seconds < 10)  mTimeLeftText += "0";
+            mTimeLeftText += seconds;
+
+            countdownText.setText(mTimeLeftText);
+        }
 
     }
 

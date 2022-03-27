@@ -14,7 +14,7 @@
         android:scaleType="fitXY"/>
 
     <TextView
-        android:id="@+id/mTime"
+        android:id="@+id/countdown_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="60sp"
