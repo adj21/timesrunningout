@@ -1,4 +1,4 @@
-package is.hi.hbv601g.timesrunningout;
+package is.hi.hbv601g.timesrunningout.Persistence;
 import java.util.*;
 
 public class Game {
@@ -26,6 +26,10 @@ public class Game {
 
     public List<String> getWords() {
         return mWords;
+    }
+
+    public int getCurrentRound() {
+        return mCurrentRound;
     }
 
     public void setWords(List<String> words) {

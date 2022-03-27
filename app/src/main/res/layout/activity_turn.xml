@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".Controllers.MainActivity">
+    tools:context=".Controllers.TurnActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -16,33 +14,37 @@
         android:scaleType="fitXY"/>
 
     <TextView
-        android:id="@+id/round_text"
+        android:id="@+id/mTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="60dp"
-        android:textColor= "@color/design_default_color_primary_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_gravity="center"
-        android:paddingBottom="20dp"/>
+        android:textSize="60sp"
+        tools:text="30"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="150dip"/>
+
+    <TextView
+        android:id="@+id/word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        tools:text="Word"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="250dip"/>
 
     <Button
-        android:id="@+id/StartTurn_button"
+        android:id="@+id/countdown_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
         android:layout_gravity="center"
-        android:text="@string/play" />
+        android:text="Validate" />
 
-    <FrameLayout
+    <Button
+        android:id="@+id/countdown_button2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <!-- TODO: make button for custom game -->
-    </FrameLayout>
-
-
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center"
+        android:text="Skip" />
 
 </FrameLayout>
