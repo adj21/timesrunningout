@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Time is running out</string>
     <string name="play">Play</string>
+    <string name="round_1">Round 1</string>
+    <string name="round_2">Round 1</string>
+    <string name="round_3">Round 1</string>
+    <string name="preference_file_key">KEY</string>
     <!--<string name="toast_intro">Divide into 2 teams</string> -->
     <string name="time_is_running_out">Time is running out!</string>
 </resources>

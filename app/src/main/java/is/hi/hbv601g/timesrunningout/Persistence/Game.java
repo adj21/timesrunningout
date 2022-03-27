@@ -28,6 +28,10 @@ public class Game {
         return mWords;
     }
 
+    public int getCurrentRound() {
+        return mCurrentRound;
+    }
+
     public void setWords(List<String> words) {
         mWords = words;
     }

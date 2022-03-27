@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences mSharedPref;
     private Button mStartRoundButton;
     private Button mPlayButton;
-    private WordService mWordService;
+    private WordService mWordService = new WordService();
     //TODO: Button for custom game
 
     @Override
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                Context context = MainActivity.this;
-               mSharedPref = context.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
+               mSharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                Game mGame = new Game(mWordService.getWords());
 
                SharedPreferences.Editor prefsEditor = mSharedPref.edit();
