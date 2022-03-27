@@ -66,7 +66,7 @@ public class TurnActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mGame = mWordService.setGuessed(index, mGame);
                 mGame.incrementTeamResults(mCurrentTeam);
-                index +=1;
+                index += 1;
                 // save the changed game?
                 displayWord();
             }
@@ -81,6 +81,7 @@ public class TurnActivity extends AppCompatActivity {
             }
         });
 
+    }
         public void startTimer() {
             mCountDownTimer = new CountDownTimer(mTimeLeft, 1000) {
                 @Override
@@ -90,7 +91,7 @@ public class TurnActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFinish(){
+                public void onFinish() {
 
                 }
             }.start();
@@ -98,18 +99,18 @@ public class TurnActivity extends AppCompatActivity {
             mTimerRunning = true;
         }
 
-        public void updateTimer() {
+        public void updateTimer () {
             int seconds = (int) mTimeLeft % 30000 / 1000;
 
             String mTimeLeftText = "";
 
-            if (seconds < 10)  mTimeLeftText += "0";
+            if (seconds < 10) mTimeLeftText += "0";
             mTimeLeftText += seconds;
 
             countdownText.setText(mTimeLeftText);
         }
 
-    }
+
 
     private void displayWord() {
         if(index < mGame.getWords().size()) {
