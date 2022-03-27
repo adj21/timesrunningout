@@ -1,4 +1,4 @@
-package is.hi.hbv601g.timesrunningout;
+package is.hi.hbv601g.timesrunningout.Controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,24 +6,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.List;
 
+import is.hi.hbv601g.timesrunningout.Persistence.Game;
+import is.hi.hbv601g.timesrunningout.R;
+import is.hi.hbv601g.timesrunningout.Services.WordService;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private SharedPreferences mSharedPref;
-    private Game mGame;
-    private List<String> mWords = Arrays.asList("Butterfly", "cup", "tea", "tree");
     private Button mStartRoundButton;
     private Button mPlayButton;
+    private WordService mWordService;
     //TODO: Button for custom game
 
     @Override
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                Context context = MainActivity.this;
                mSharedPref = context.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
-               Game mGame = new Game(mWords);
+               Game mGame = new Game(mWordService.getWords());
 
                SharedPreferences.Editor prefsEditor = mSharedPref.edit();
                Gson gson = new Gson();
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                // Toast.makeText(MainActivity.this, R.string.toast_intro, Toast.LENGTH_LONG).show();
             }
         });
+
         //TODO: program button for custom game
     }
 }

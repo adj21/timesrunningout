@@ -1,4 +1,4 @@
-package is.hi.hbv601g.timesrunningout;
+package is.hi.hbv601g.timesrunningout.Persistence;
 import java.util.*;
 
 public class Game {
