@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import is.hi.hbv601g.timesrunningout.Persistence.Game;
 import is.hi.hbv601g.timesrunningout.R;
-import is.hi.hbv601g.timesrunningout.TurnActivity;
 
 public class RoundActivity extends AppCompatActivity {
 
