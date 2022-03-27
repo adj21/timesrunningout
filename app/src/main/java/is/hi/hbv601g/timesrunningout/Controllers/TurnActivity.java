@@ -26,7 +26,7 @@ public class TurnActivity extends AppCompatActivity {
     private TextView mWord;
     private CountDownTimer mTime;
     private long mTimeLeft = 30000; // 30 seconds
-    private TextView mTimerLeft;
+   // private TextView mTimerLeft;
     private TextView mTimerText;
     private boolean mTimerRunning;
     private Button mNextButton;
@@ -42,6 +42,7 @@ public class TurnActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_turn);
+        startTimer();
 
         countdownText = findViewById(R.id.mTime);
         mValidateButton = findViewById(R.id.countdown_button);
@@ -75,6 +76,22 @@ public class TurnActivity extends AppCompatActivity {
                 displayWord();
             }
         });
+
+        public void startTimer() {
+            countDownTimer = new CountDownTimer(mTimeLeft, 1000) {
+                @Override
+                public void onTick(long l) {
+                    mTimeLeft = l;
+                }
+
+                @Override
+                public void onFinish(){
+
+                }
+            }.start();
+
+            mTimerRunning = true;
+        }
 
 
     }
