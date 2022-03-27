@@ -92,7 +92,7 @@ public class TurnActivity extends AppCompatActivity {
 
                 @Override
                 public void onFinish() {
-
+                    // TODO: make it start next teams turn/next round
                 }
             }.start();
 
