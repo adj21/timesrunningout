@@ -25,12 +25,14 @@ public class TurnActivity extends AppCompatActivity {
     private WordService mWordService;
     private TextView countdownText;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_turn);
 
-        countdownText = findViewById(R.id.mTime);
+        countdownText = findViewById(R.id.mWord);
         mValidateButton = findViewById(R.id.countdown_button);
         mSkipButton = findViewById(R.id.countdown_button2);
 

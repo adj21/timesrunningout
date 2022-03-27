@@ -43,6 +43,7 @@ public class RoundActivity extends AppCompatActivity {
 
         setRoundText(mGame.getCurrentRound());
 
+
         mStartTurnButton = (Button) findViewById(R.id.StartTurn_button);
         mStartTurnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,9 +52,13 @@ public class RoundActivity extends AppCompatActivity {
                 //i.putExtra("is.hi.hbv601g.geoquiz.answer_is_true", answerIsTrue);
                 startActivity(i);
                 // Toast.makeText(MainActivity.this, R.string.toast_intro, Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
+
+
+
 
     private void setRoundText(int i) {
         switch(i) {

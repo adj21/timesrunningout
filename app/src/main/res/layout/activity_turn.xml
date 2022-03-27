@@ -19,15 +19,17 @@
         android:layout_height="wrap_content"
         android:textSize="60sp"
         tools:text="30"
+        android:textColor="@color/black"
         android:layout_gravity="top|center_horizontal"
         android:layout_marginTop="150dip"/>
 
     <TextView
-        android:id="@+id/word"
+        android:id="@+id/mWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="50sp"
         tools:text="Word"
+        android:textColor="@color/black"
         android:layout_gravity="top|center_horizontal"
         android:layout_marginTop="250dip"/>
 
