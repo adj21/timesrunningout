@@ -18,7 +18,7 @@ public class RoundActivity extends AppCompatActivity {
     private SharedPreferences mSharedPref;
     private Game mGame;
     private List<String> mWords = Arrays.asList("Butterfly", "cup", "tea", "tree");
-    private Button mStartRoundButton;
+    private Button mStartRoundButton;//TODO TURN NOT ROUND
 
 
     @Override
@@ -39,9 +39,9 @@ public class RoundActivity extends AppCompatActivity {
         mStartRoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(RoundActivity.this, TurnActivity.class);
+               // Intent i = new Intent(RoundActivity.this, TurnActivity.class);TODO
                 //i.putExtra("is.hi.hbv601g.geoquiz.answer_is_true", answerIsTrue);
-                startActivity(i);
+               // startActivity(i);TODO
                 // Toast.makeText(MainActivity.this, R.string.toast_intro, Toast.LENGTH_LONG).show();
             }
         });

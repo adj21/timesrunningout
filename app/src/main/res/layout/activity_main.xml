@@ -15,6 +15,8 @@
         android:src="@drawable/smiley1"
         android:scaleType="fitXY"/>
 
+    <!-- TODO: layout_constraint google it TextAppearance -->sto
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="326dp"
