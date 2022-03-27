@@ -75,6 +75,5 @@ public class RoundActivity extends AppCompatActivity {
                 mTextViewRound.setText(R.string.round_3);
                 break;
         }
-        Log.d("RoundActivity", (String) mTextViewRound.getText());
     }
 }
