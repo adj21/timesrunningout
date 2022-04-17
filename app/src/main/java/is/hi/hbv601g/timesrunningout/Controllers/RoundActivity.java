@@ -71,11 +71,7 @@ public class RoundActivity extends AppCompatActivity {
         switch(i) {
             case 1:
                 mTextViewRound.setText(R.string.round_1);
-<<<<<<< HEAD
                 mTextViewRules.setText(R.string.rules_1);
-=======
-                //mTextViewRules.setText(R.string.rules_1);
->>>>>>> facd2235726d4964309dd11715bf6cb68ea90c98
                 break;
             case 2:
                 mTextViewRound.setText(R.string.round_2);
