@@ -23,6 +23,7 @@ public class RoundActivity extends AppCompatActivity {
     private Game mGame;
 
     private TextView mTextViewRound;
+    private TextView mTextViewRules;
 
     private Button mStartTurnButton;
 
@@ -40,6 +41,7 @@ public class RoundActivity extends AppCompatActivity {
         mGame = gson.fromJson(json, Game.class);
 
         mTextViewRound = (TextView) findViewById(R.id.round_text);
+        mTextViewRules = (TextView) findViewById(R.id.round_rules);
 
         setRoundText(mGame.getCurrentRound());
 
@@ -67,12 +69,15 @@ public class RoundActivity extends AppCompatActivity {
         switch(i) {
             case 1:
                 mTextViewRound.setText(R.string.round_1);
+                mTextViewRules.setText(R.string.rules_1);
                 break;
             case 2:
                 mTextViewRound.setText(R.string.round_2);
+                mTextViewRules.setText(R.string.rules_2);
                 break;
             case 3:
                 mTextViewRound.setText(R.string.round_3);
+                mTextViewRules.setText(R.string.rules_3);
                 break;
         }
     }
