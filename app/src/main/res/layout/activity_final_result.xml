@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Controllers.MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/smiley1"
+        android:scaleType="fitXY"/>
+
+    <!-- TODO: layout_constraint google it TextAppearance -->sto
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="326dp"
+        android:layout_height="245dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="150dip"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/imageedit_2_4380084509" />
+
+    <TextView
+        android:id="@+id/result_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textColor= "@color/design_default_color_primary_dark"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"/>
+
+    <Button
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_gravity="center"
+        android:text="@string/playNew" />
+
+</FrameLayout>

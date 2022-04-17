@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Timesrunningout">
         <activity
+            android:name=".Controllers.FinalResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".Controllers.TurnActivity"
             android:exported="false" />
         <activity

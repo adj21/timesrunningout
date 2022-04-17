@@ -50,7 +50,7 @@ public class WordService {
     public Game setAllUnguessed(Game game) {
         List<Boolean> guessed = game.getGuessed();
         List<Boolean> guessedNew = new ArrayList<Boolean>(Arrays.asList(new Boolean[guessed.size()]));
-        Collections.fill(guessed, Boolean.FALSE);
+        Collections.fill(guessedNew, Boolean.FALSE);
         game.setGuessed(guessedNew);
         return game;
     }

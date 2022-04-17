@@ -24,6 +24,17 @@
         android:layout_marginTop="150dip"/>
 
     <TextView
+        android:id="@+id/team_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="60sp"
+        tools:text="30"
+        android:textColor="@color/black"
+        android:layout_gravity="top"
+        android:layout_marginTop="50dip"
+        android:layout_marginLeft="50dip"/>
+
+    <TextView
         android:id="@+id/mWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,5 +59,13 @@
         android:layout_marginTop="150dp"
         android:layout_gravity="center"
         android:text="Skip" />
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp"
+        android:text="Next" />
 
 </FrameLayout>

@@ -53,7 +53,9 @@ public class RoundActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(RoundActivity.this, TurnActivity.class);
                 //i.putExtra("is.hi.hbv601g.geoquiz.answer_is_true", answerIsTrue);
+                Log.d("RoundActivity", "I got here");
                 startActivity(i);
+                Log.d("RoundActivity", "I got here");
                 // Toast.makeText(MainActivity.this, R.string.toast_intro, Toast.LENGTH_LONG).show();
 
             }
@@ -67,6 +69,7 @@ public class RoundActivity extends AppCompatActivity {
         switch(i) {
             case 1:
                 mTextViewRound.setText(R.string.round_1);
+                //mTextViewRules.setText(R.string.rules_1);
                 break;
             case 2:
                 mTextViewRound.setText(R.string.round_2);

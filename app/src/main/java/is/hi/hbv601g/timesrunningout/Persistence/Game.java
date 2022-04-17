@@ -8,7 +8,7 @@ public class Game {
     private List<Integer> mTeamResults; //mTeamResults[0] stores the result of team 1, mTeamResults[1] stores the result of team 2
     private int mCurrentRound;
     private int mCurrentIndex;
-    //might need a currentTeam number
+    private boolean mCurrentTeam;
 
     public Game(List<String> words) {
         mWords = words;
@@ -23,6 +23,7 @@ public class Game {
         mTeamResults = teamResults;
         mCurrentRound = 1;//we start at round 1
         mCurrentIndex = 0;
+        mCurrentTeam = false;
     }
 
     public List<String> getWords() {
@@ -52,6 +53,9 @@ public class Game {
     public List<Boolean> getGuessed() {
         return mGuessed;
     }
+    public Boolean getGuessed(int i) {
+        return mGuessed.get(i);
+    }
 
     public void setGuessed(List<Boolean> guessed) {
         mGuessed = guessed;
@@ -66,8 +70,12 @@ public class Game {
         mTeamResults.set(team-1,score+1);
     }
 
-    public int getCurrentInt() {
-        return mCurrentRound;
+    public boolean getCurrentTeam() {
+        return mCurrentTeam;
+    }
+
+    public void setCurrentTeam(boolean team) {
+        mCurrentTeam = team;
     }
 
     public void setCurrentRound(int currentRound) {
