@@ -3,9 +3,11 @@ package is.hi.hbv601g.timesrunningout.Controllers;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.*;
 
 import com.google.gson.Gson;
@@ -18,10 +20,12 @@ public class FinalResultActivity extends AppCompatActivity {
     private TextView mTextResult;
     private SharedPreferences mSharedPref;
     private Game mGame;
+    private Button mPlayAgainButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_final_result);
 
         Context context = FinalResultActivity.this;
@@ -38,5 +42,15 @@ public class FinalResultActivity extends AppCompatActivity {
         Resources res = getResources();
         String text = String.format(res.getString(R.string.results), resultOne, resultTwo);
         mTextResult.setText(text);
+
+        mPlayAgainButton = (Button) findViewById(R.id.play_again_button);
+        mPlayAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(FinalResultActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
