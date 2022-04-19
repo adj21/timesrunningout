@@ -12,10 +12,14 @@ import android.widget.Button;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import is.hi.hbv601g.timesrunningout.Networking.NetworkCallback;
+import is.hi.hbv601g.timesrunningout.Networking.NetworkManager;
 import is.hi.hbv601g.timesrunningout.Persistence.Game;
+import is.hi.hbv601g.timesrunningout.Persistence.Word;
 import is.hi.hbv601g.timesrunningout.R;
 import is.hi.hbv601g.timesrunningout.Services.WordService;
 
@@ -25,13 +29,31 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences mSharedPref;
     private Button mStartRoundButton;
     private Button mPlayButton;
-    private WordService mWordService = new WordService();
+    private WordService mWordService;
     //TODO: Button for custom game
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        NetworkManager networkManager = NetworkManager.getInstance(this);
+        networkManager.getWords(new NetworkCallback<List<Word>>() {
+            @Override
+            public void onSuccess(List<Word> result) {
+                List<Word> words = result;
+                Log.d(TAG, "Successfully fetched words.");
+                List<String> wordsStrings = new ArrayList();
+                for(Word word : words){
+                    wordsStrings.add(word.getValue());
+                }
+                mWordService = new WordService(wordsStrings);
+            }
+            @Override
+            public void onFailure(String errorString) {
+                Log.e(TAG, "Failed to get words: " + errorString);
+            }
+        });
 
         mPlayButton = (Button) findViewById(R.id.play_button);
         mPlayButton.setOnClickListener(new View.OnClickListener() {
