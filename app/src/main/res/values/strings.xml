@@ -10,8 +10,8 @@
     <string name="rules_1"><![CDATA[Describe the word displayed on the screen to your teammates.         You cannot say words of the same family, words that sound similar,         translate, or spell the words.        When you teammates have guessed the words, press \"validate\",         you can also skip a word by by pressing \"skip\".]]></string>
     <string name="rules_2"><![CDATA[Use 1 word to describe the word displayed on the screen to your teammates.         You cannot say words of the same family, words that sound similar,         translate, or spell the words.        When you teammates have guessed the words, press \"validate\",         you can also skip a word by by pressing \"skip\".]]></string>
     <string name="rules_3"><![CDATA[Mime the word displayed on the screen to your teammates.         You cannot say words of the same family, words that sound similar,         translate, or spell the words.      When you teammates have guessed the words, press \"validate\",         you can also skip a word by pressing \"skip\".]]></string>
-    <string name="team_1">team 1</string>
-    <string name="team_2">team 2</string>
+    <string name="team_1">Team 1</string>
+    <string name="team_2">Team 2</string>
     <string name="playNew">Play again</string>
-    <string name="results">Team 1: %1$d \n Team 2: %2$d</string>
+    <string name="results">Team 1: %1$d \nTeam 2: %2$d</string>
 </resources>

@@ -144,7 +144,7 @@ public class TurnActivity extends AppCompatActivity {
 
             String mTimeLeftText = "";
 
-            if (seconds < 10) mTimeLeftText += "0";
+            if (seconds < 10) mTimeLeftText += "";
             mTimeLeftText += seconds;
 
             mCountdownText.setText(mTimeLeftText);
