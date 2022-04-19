@@ -14,4 +14,7 @@
     <string name="team_2">Team 2</string>
     <string name="playNew">Play again</string>
     <string name="results">Team 1: %1$d \nTeam 2: %2$d</string>
+    <string name="next">Next</string>
+    <string name="validate">Validate</string>
+    <string name="skip">Skip</string>
 </resources>
