@@ -36,7 +36,7 @@ public class TurnActivity extends AppCompatActivity {
     //private boolean mTimerRunning;
     private boolean mTimerFinished = false;
 
-    private WordService mWordService = new WordService();
+    private WordService mWordService;
 
     private SharedPreferences mSharedPref;
     private Game mGame;
@@ -61,6 +61,7 @@ public class TurnActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = mSharedPref.getString("Game", "");
         mGame = gson.fromJson(json, Game.class);
+        mWordService = new WordService(mGame.getWords());
         index = mGame.getCurrentIndex();
         mCurrentTeam = mGame.getCurrentTeam();
 
