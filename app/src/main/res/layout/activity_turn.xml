@@ -85,7 +85,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:text="Next" />
+            android:text="Next"
+            android:backgroundTint="@color/blue"
+            />
 
 
     </LinearLayout>
@@ -102,7 +104,9 @@
             android:layout_alignParentLeft="true"
             android:text="Validate"
             android:layout_marginLeft="90dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:backgroundTint="@color/green"
+            />
 
         <Button
             android:id="@+id/countdown_button2"
@@ -112,7 +116,9 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"
             android:text="Skip"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:backgroundTint="@color/red"
+            />
 
 
     </LinearLayout>

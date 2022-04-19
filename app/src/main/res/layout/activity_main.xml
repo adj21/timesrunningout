@@ -41,7 +41,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="@string/play" />
+            android:text="@string/play"
+            android:backgroundTint="@color/green"
+            />
+
     </LinearLayout>
 
     <LinearLayout

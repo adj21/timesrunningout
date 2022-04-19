@@ -32,7 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_gravity="center"
-        android:text="@string/playNew" />
+        android:text="@string/playNew"
+        android:backgroundTint="@color/green"
+        />
 
     <TextView
         android:id="@+id/result_text"
