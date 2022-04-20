@@ -1,15 +1,14 @@
 package is.hi.hbv601g.timesrunningout.Controllers;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.content.SharedPreferences;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.textfield.TextInputLayout;
 
 import com.google.gson.Gson;
 
@@ -22,6 +21,9 @@ public class SetupActivity extends AppCompatActivity {
 
     private EditText mPlayerTextField;
     private EditText mWordTextField;
+
+    private TextView mplayersLeft;
+    private TextView mwordsLeft;
 
     private Button mNrPlayersButton;
     private Button mNextWordButton;
@@ -42,24 +44,32 @@ public class SetupActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = mSharedPref.getString("Game", "");
 
+        mNextWordButton = (Button) findViewById(R.id.nextWord);
+        mWordTextField = (EditText) findViewById(R.id.wordCount);
+
         mNextWordButton.setVisibility(View.GONE);
         mWordTextField.setVisibility(View.GONE);
 
         mPlayerTextField = (EditText) findViewById(R.id.playerCount);
-        mWordTextField = (EditText) findViewById(R.id.wordCount);
 
         mNrPlayersButton = (Button) findViewById(R.id.nrPlayers);
         mNrPlayersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                EditText playercountEditText = (EditText) findViewById(R.id.playerCount);
+                mPlayerCount = Integer.parseInt(playercountEditText.getText().toString());
+
+
                 mNrPlayersButton.setVisibility(View.GONE);
                 mPlayerTextField.setVisibility(View.GONE);
+                mplayersLeft.setVisibility(View.VISIBLE);
+                mwordsLeft.setVisibility(View.VISIBLE);
                 //TODO make it work
             }
         });
 
-        mNextWordButton = (Button) findViewById(R.id.nextWord);
+
         mNextWordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
