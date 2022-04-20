@@ -40,6 +40,9 @@ public class SetupActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = mSharedPref.getString("Game", "");
 
+        mNextWordButton.setVisibility(View.GONE);
+        mWordTextField.setVisibility(View.GONE);
+
         mPlayerTextField = (EditText) findViewById(R.id.playerCount);
         mWordTextField = (EditText) findViewById(R.id.wordCount);
 

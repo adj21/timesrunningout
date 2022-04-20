@@ -26,6 +26,10 @@ public class Game {
         mCurrentTeam = false;
     }
 
+    public Game() {
+        //todo: create game without words for custom game
+    }
+
     public List<String> getWords() {
         return mWords;
     }
