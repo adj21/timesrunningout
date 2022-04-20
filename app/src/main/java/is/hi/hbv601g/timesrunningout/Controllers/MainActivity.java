@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences mSharedPref;
     private Button mStartRoundButton;
     private Button mPlayButton;
+    private Button mPlayCustomButton;
     private WordService mWordService;
     //TODO: Button for custom game
 
@@ -76,6 +77,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: program button for custom game
+        mPlayCustomButton = (Button) findViewById(R.id.play_custom);
+        mPlayCustomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = MainActivity.this;
+                mSharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                Game mGame = new Game(mWordService.getWords());
+
+                SharedPreferences.Editor prefsEditor = mSharedPref.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(mGame); //change the Game object into a String
+                prefsEditor.putString("Game", json); //put the String into the shared preferences
+                prefsEditor.commit();
+
+                Intent i = new Intent(MainActivity.this, SetupActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

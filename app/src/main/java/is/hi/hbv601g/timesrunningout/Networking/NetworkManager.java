@@ -63,6 +63,32 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
+    public void getnWords(int n, final NetworkCallback<List<Word>> callback){
+        String url = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendPath("nWords")
+                .appendPath(String.valueOf(n))
+                .build().toString();
+
+        StringRequest request = new StringRequest(
+                Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<Word>>(){}.getType();
+                List<Word> wordBank = gson.fromJson(response, listType);
+                callback.onSuccess(wordBank);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFailure(error.toString());
+            }
+        }
+        );
+        mQueue.add(request);
+    }
+
     public void getWord(int id, final NetworkCallback<Word> callback){
         String url = Uri.parse(BASE_URL)
                 .buildUpon()
