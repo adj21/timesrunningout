@@ -49,6 +49,9 @@ public class SetupActivity extends AppCompatActivity {
         mNrPlayersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                mNrPlayersButton.setVisibility(View.GONE);
+                mPlayerTextField.setVisibility(View.GONE);
                 //TODO make it work
             }
         });
