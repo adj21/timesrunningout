@@ -9,6 +9,7 @@ public class Game {
     private int mCurrentRound;
     private int mCurrentIndex;
     private boolean mCurrentTeam;
+    private boolean mCustomGame;
 
     public Game(List<String> words) {
         mWords = words;
@@ -24,6 +25,7 @@ public class Game {
         mCurrentRound = 1;//we start at round 1
         mCurrentIndex = 0;
         mCurrentTeam = false;
+        mCustomGame = false;
     }
 
     public Game() {
@@ -33,6 +35,7 @@ public class Game {
         mCurrentRound = 1;//we start at round 1
         mCurrentIndex = 0;
         mCurrentTeam = false;
+        mCustomGame = true;
     }
 
     public List<String> getWords() {
@@ -91,4 +94,6 @@ public class Game {
     public void setCurrentRound(int currentRound) {
         mCurrentRound = currentRound;
     }
+
+    public boolean getCustomGame() { return mCustomGame;}
 }

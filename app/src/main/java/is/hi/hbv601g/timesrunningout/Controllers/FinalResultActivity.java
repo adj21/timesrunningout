@@ -43,6 +43,8 @@ public class FinalResultActivity extends AppCompatActivity {
         String text = String.format(res.getString(R.string.results), resultOne, resultTwo);
         mTextResult.setText(text);
 
+        //post words if we are in mGame.getCustomGame == true
+
         mPlayAgainButton = (Button) findViewById(R.id.play_again_button);
         mPlayAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
