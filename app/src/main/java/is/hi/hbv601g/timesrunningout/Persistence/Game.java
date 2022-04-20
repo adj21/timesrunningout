@@ -27,7 +27,12 @@ public class Game {
     }
 
     public Game() {
-        //todo: create game without words for custom game
+        List<Integer> teamResults = Arrays.asList(0,0);//initialize the score at 0
+
+        mTeamResults = teamResults;
+        mCurrentRound = 1;//we start at round 1
+        mCurrentIndex = 0;
+        mCurrentTeam = false;
     }
 
     public List<String> getWords() {
@@ -57,6 +62,7 @@ public class Game {
     public List<Boolean> getGuessed() {
         return mGuessed;
     }
+
     public Boolean getGuessed(int i) {
         return mGuessed.get(i);
     }
