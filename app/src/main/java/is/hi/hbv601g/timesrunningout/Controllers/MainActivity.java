@@ -27,39 +27,38 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private SharedPreferences mSharedPref;
-    private Button mStartRoundButton;
     private Button mPlayButton;
     private Button mPlayCustomButton;
     private WordService mWordService;
-    //TODO: Button for custom game
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NetworkManager networkManager = NetworkManager.getInstance(this);
-        networkManager.getWords(new NetworkCallback<List<Word>>() {
-            @Override
-            public void onSuccess(List<Word> result) {
-                List<Word> words = result;
-                Log.d(TAG, "Successfully fetched words.");
-                List<String> wordsStrings = new ArrayList();
-                for(Word word : words){
-                    wordsStrings.add(word.getValue());
-                }
-                mWordService = new WordService(wordsStrings);
-            }
-            @Override
-            public void onFailure(String errorString) {
-                Log.e(TAG, "Failed to get words: " + errorString);
-            }
-        });
-
         mPlayButton = (Button) findViewById(R.id.play_button);
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                NetworkManager networkManager = NetworkManager.getInstance(MainActivity.this);
+                networkManager.getWords(new NetworkCallback<List<Word>>() {
+                    @Override
+                    public void onSuccess(List<Word> result) {
+                        List<Word> words = result;
+                        Log.d(TAG, "Successfully fetched words.");
+                        List<String> wordsStrings = new ArrayList();
+                        for(Word word : words){
+                            wordsStrings.add(word.getValue());
+                        }
+                        mWordService = new WordService(wordsStrings);
+                    }
+                    @Override
+                    public void onFailure(String errorString) {
+                        Log.e(TAG, "Failed to get words: " + errorString);
+                    }
+                });
+
                Context context = MainActivity.this;
                mSharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                Game mGame = new Game(mWordService.getWords());

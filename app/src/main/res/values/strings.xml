@@ -17,4 +17,7 @@
     <string name="next">Next</string>
     <string name="validate">Validate</string>
     <string name="skip">Skip</string>
+    <string name="playersleft">there are %1$d players who still need to enter words</string>
+    <string name="wordsleft">you have %1$d words left to enter</string>
+    <string name="toast_passDevice">pass the device to another player</string>
 </resources>

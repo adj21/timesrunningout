@@ -21,6 +21,7 @@ import is.hi.hbv601g.timesrunningout.Services.WordService;
 public class TurnActivity extends AppCompatActivity {
 
     private static final String TAG = "TurnActivity";
+    private SharedPreferences mSharedPref;
 
     private Button mSkipButton;
     private Button mValidateButton;
@@ -38,7 +39,6 @@ public class TurnActivity extends AppCompatActivity {
 
     private WordService mWordService;
 
-    private SharedPreferences mSharedPref;
     private Game mGame;
     private int index;
     private boolean mCurrentTeam;
