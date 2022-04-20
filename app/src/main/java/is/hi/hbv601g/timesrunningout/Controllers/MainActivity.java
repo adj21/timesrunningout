@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Context context = MainActivity.this;
                 mSharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-                Game mGame = new Game(mWordService.getWords());
+                Game mGame = new Game();
 
                 SharedPreferences.Editor prefsEditor = mSharedPref.edit();
                 Gson gson = new Gson();
