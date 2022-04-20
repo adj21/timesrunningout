@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.content.SharedPreferences;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,10 +20,10 @@ public class SetupActivity extends AppCompatActivity {
 
     private SharedPreferences mSharedPref;
 
-    private TextInputLayout mPlayerTextField;
-    private TextInputLayout mWordTextField;
+    private EditText mPlayerTextField;
+    private EditText mWordTextField;
 
-    private Button mNextPlayerButton;
+    private Button mNrPlayersButton;
     private Button mNextWordButton;
 
     private int mPlayerCount;
@@ -41,11 +42,11 @@ public class SetupActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = mSharedPref.getString("Game", "");
 
-        mPlayerTextField = (TextInputLayout) findViewById(R.id.playerCount);
-        mWordTextField = (TextInputLayout) findViewById(R.id.wordCount);
+        mPlayerTextField = (EditText) findViewById(R.id.playerCount);
+        mWordTextField = (EditText) findViewById(R.id.wordCount);
 
-        mNextPlayerButton = (Button) findViewById(R.id.nextPlayer);
-        mNextPlayerButton.setOnClickListener(new View.OnClickListener() {
+        mNrPlayersButton = (Button) findViewById(R.id.nrPlayers);
+        mNrPlayersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO make it work

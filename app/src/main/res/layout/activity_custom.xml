@@ -15,7 +15,17 @@
         android:orientation="vertical"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp">
+        android:layout_marginTop="200dp">
+
+        <TextView
+            android:id="@+id/team_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/design_default_color_primary_dark"
+            android:textSize="30sp"
+            tools:text="Team 0"
+            />
 
         <EditText
             android:id="@+id/playerCount"
@@ -47,7 +57,7 @@
             />
 
         <EditText
-            android:id="@+id/customWord"
+            android:id="@+id/wordCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
