@@ -44,11 +44,13 @@ public class SetupActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = mSharedPref.getString("Game", "");
 
+        mNextWordButton = (Button) findViewById(R.id.nextWord);
+        mWordTextField = (EditText) findViewById(R.id.wordCount);
+
         mNextWordButton.setVisibility(View.GONE);
         mWordTextField.setVisibility(View.GONE);
 
         mPlayerTextField = (EditText) findViewById(R.id.playerCount);
-        mWordTextField = (EditText) findViewById(R.id.wordCount);
 
         mNrPlayersButton = (Button) findViewById(R.id.nrPlayers);
         mNrPlayersButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +69,7 @@ public class SetupActivity extends AppCompatActivity {
             }
         });
 
-        mNextWordButton = (Button) findViewById(R.id.nextWord);
+
         mNextWordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
