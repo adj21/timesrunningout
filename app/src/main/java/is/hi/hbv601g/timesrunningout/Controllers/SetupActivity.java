@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.content.SharedPreferences;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +23,9 @@ public class SetupActivity extends AppCompatActivity {
 
     private EditText mPlayerTextField;
     private EditText mWordTextField;
+
+    private TextView mplayersLeft;
+    private TextView mwordsLeft;
 
     private Button mNrPlayersButton;
     private Button mNextWordButton;
@@ -55,6 +59,8 @@ public class SetupActivity extends AppCompatActivity {
 
                 mNrPlayersButton.setVisibility(View.GONE);
                 mPlayerTextField.setVisibility(View.GONE);
+                mplayersLeft.setVisibility(View.VISIBLE);
+                mwordsLeft.setVisibility(View.VISIBLE);
                 //TODO make it work
             }
         });
