@@ -142,14 +142,15 @@ public class NetworkManager {
         }
     }
 
-    public boolean addWord(String word) {
+    public void addWord(String word) {
         // calling a string request method (POST) to post the data to our API
-        final boolean[] returnValue = {false};
+        //final boolean[] returnValue = {false};
         StringRequest request = new StringRequest(Request.Method.POST, BASE_URL + "addWord", new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("VOLLEY", "success");
-                returnValue[0] = true;//TODO: this doesn't work, check with callback?
+                //returnValue[0] = true;//TODO: this doesn't work, check with callback?
+                //Log.i("VOLLEY", ""+returnValue[0]);
                 //try {
                     //JSONObject respObj = new JSONObject(response);
                     //String name = respObj.getString("word");
@@ -167,13 +168,13 @@ public class NetworkManager {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("word", word);
-
                 // returning our params.
                 return params;
             }
         };
         mQueue.add(request);
-        return returnValue[0];
+        //Log.i("VOLLEY", ""+returnValue[0]);
+        //return returnValue[0];
     }
 
 }
