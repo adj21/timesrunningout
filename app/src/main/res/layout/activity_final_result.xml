@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:orientation="vertical"></LinearLayout>
 
     <LinearLayout
@@ -55,6 +55,24 @@
             android:text="@string/playNew"
             android:backgroundTint="@color/green"
             />
+
+        <TextView
+            android:id="@+id/post_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/blue"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:text="@string/post_text"/>
+
+        <Button
+            android:id="@+id/post_words_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/post"
+            android:backgroundTint="@color/green" />
 
     </LinearLayout>
 

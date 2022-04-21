@@ -125,7 +125,7 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
-    public void addWords(List<String> words) {
+    public void addWords(List<String> words) {//TODO: delete this one, no work
         for(int i=0;i<words.size();i++) {
             int finalI = i;
             StringRequest request = new StringRequest(
@@ -142,12 +142,14 @@ public class NetworkManager {
         }
     }
 
-    public void addWord(String word) {
+    public boolean addWord(String word) {
         // calling a string request method (POST) to post the data to our API
+        final boolean[] returnValue = {false};
         StringRequest request = new StringRequest(Request.Method.POST, BASE_URL + "addWord", new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("VOLLEY", "success");
+                returnValue[0] = true;//TODO: this doesn't work, check with callback?
                 //try {
                     //JSONObject respObj = new JSONObject(response);
                     //String name = respObj.getString("word");
@@ -171,6 +173,7 @@ public class NetworkManager {
             }
         };
         mQueue.add(request);
+        return returnValue[0];
     }
 
 }

@@ -29,6 +29,8 @@ public class FinalResultActivity extends AppCompatActivity {
     private SharedPreferences mSharedPref;
     private Game mGame;
     private Button mPlayAgainButton;
+    private TextView mPostText;
+    private Button mPostButton;
     private static final String TAG = "FinalResultActivity";
 
     @Override
@@ -52,20 +54,46 @@ public class FinalResultActivity extends AppCompatActivity {
         String text = String.format(res.getString(R.string.results), resultOne, resultTwo);
         mTextResult.setText(text);
 
-        if (mGame.getCustomGame()) {//post words if we are in mGame.getCustomGame == true
-            NetworkManager networkManager = NetworkManager.getInstance(FinalResultActivity.this);
-            for(int i=0; i<mGame.getWords().size();i++) {
-                networkManager.addWord(mGame.getWords().get(i));
-            }
+        mPostText = (TextView) findViewById(R.id.post_text);
+        mPostText.setVisibility(View.GONE);
+        mPostButton = (Button) findViewById(R.id.post_words_button);
+        mPostButton.setVisibility(View.GONE);
+
+        //if we are in a custom game, show the user the text and button to save words to backend
+        if (mGame.getCustomGame()) {
+            mPostText.setVisibility(View.VISIBLE);
+            mPostButton.setVisibility(View.VISIBLE);
         }
 
         mPlayAgainButton = (Button) findViewById(R.id.play_again_button);
         mPlayAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent i = new Intent(FinalResultActivity.this, MainActivity.class);
                 startActivity(i);
+            }
+        });
+        mPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NetworkManager networkManager = NetworkManager.getInstance(FinalResultActivity.this);
+                for(int i=0; i<mGame.getWords().size();i++) {
+                    boolean success = networkManager.addWord(mGame.getWords().get(i));
+                    if(success) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Words successfully saved",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "There was an error while saving the words",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }
+                mPostText.setVisibility(View.GONE);
+                mPostButton.setVisibility(View.GONE);
             }
         });
     }
