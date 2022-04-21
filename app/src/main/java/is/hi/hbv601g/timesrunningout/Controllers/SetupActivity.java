@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -105,7 +106,9 @@ public class SetupActivity extends AppCompatActivity {
                     String word = mWordTextField.getText().toString();
                     mWords.add(word);
 
-                    Toast.makeText(SetupActivity.this, R.string.toast_passDevice, Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(SetupActivity.this, R.string.toast_passDevice, Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP, 0, 0);
+                    toast.show();
                     mPlayerCount --;
                     String text = String.format(res.getString(R.string.playersleft), mPlayerCount);
                     mPlayersLeft.setText(text);

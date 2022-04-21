@@ -17,9 +17,9 @@
     <string name="next">Next</string>
     <string name="validate">Validate</string>
     <string name="skip">Skip</string>
-    <string name="playersleft">there are %1$d players who still need to enter words</string>
-    <string name="wordsleft">you have %1$d words left to enter</string>
-    <string name="toast_passDevice">pass the device to another player</string>
+    <string name="playersleft">There are %1$d players who still need to enter words</string>
+    <string name="wordsleft">You have %1$d words left to enter</string>
+    <string name="toast_passDevice">Pass the device to another player</string>
     <string name="post">yes</string>
-    <string name="post_text">do you want to save your words to the database?</string>
+    <string name="post_text">Do you want to save your words to the database?</string>
 </resources>
