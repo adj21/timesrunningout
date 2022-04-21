@@ -76,23 +76,26 @@ public class FinalResultActivity extends AppCompatActivity {
         mPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean success = false;
+                final boolean[] success = {false};
                 NetworkManager networkManager = NetworkManager.getInstance(FinalResultActivity.this);
                 for(int i=0; i<mGame.getWords().size();i++) {
-                    networkManager.addWord(mGame.getWords().get(i));
+                    networkManager.addWord(mGame.getWords().get(i), new NetworkCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "Words successfully saved",
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        @Override
+                        public void onFailure(String errorString) {
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "There was an error while saving the words",
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
                 }
-                /*if(success) {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Words successfully saved",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                else {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "There was an error while saving the words",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }*/
                 mPostText.setVisibility(View.GONE);
                 mPostButton.setVisibility(View.GONE);
             }

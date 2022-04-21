@@ -1,6 +1,7 @@
 package is.hi.hbv601g.timesrunningout.Networking;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 
@@ -26,7 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import is.hi.hbv601g.timesrunningout.Controllers.FinalResultActivity;
+import is.hi.hbv601g.timesrunningout.Controllers.MainActivity;
 import is.hi.hbv601g.timesrunningout.Persistence.Word;
+import is.hi.hbv601g.timesrunningout.R;
 
 public class NetworkManager {
     private static final String BASE_URL = "http://10.0.2.2:8080/";
@@ -34,6 +38,7 @@ public class NetworkManager {
     private static NetworkManager mInstance;
     private static RequestQueue mQueue;
     private Context mContext;
+    private SharedPreferences sharedPrefs;
 
     public static synchronized NetworkManager getInstance(Context context){
         if(mInstance == null) {
@@ -125,43 +130,19 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
-    public void addWords(List<String> words) {//TODO: delete this one, no work
-        for(int i=0;i<words.size();i++) {
-            int finalI = i;
-            StringRequest request = new StringRequest(
-                    Request.Method.POST, BASE_URL + "addWord", response -> { }, error -> { }) {
-                //add parameters to the request
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String,String>();
-                    params.put("word", words.get(finalI));
-                    return params;
-                }
-            };
-            mQueue.add(request);
-        }
-    }
-
-    public void addWord(String word) {
+    public void addWord(String word, final NetworkCallback<String> callback) {
         // calling a string request method (POST) to post the data to our API
-        //final boolean[] returnValue = {false};
         StringRequest request = new StringRequest(Request.Method.POST, BASE_URL + "addWord", new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("VOLLEY", "success");
-                //returnValue[0] = true;//TODO: this doesn't work, check with callback?
-                //Log.i("VOLLEY", ""+returnValue[0]);
-                //try {
-                    //JSONObject respObj = new JSONObject(response);
-                    //String name = respObj.getString("word");
-                //} catch (JSONException e) {
-                //    e.printStackTrace();
-                //} TODO: delete this
+                callback.onSuccess("success");
             }
         }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i("VOLLEY", ""+error);
+                callback.onFailure(error.toString());
             }
         }) {
             @Override
@@ -173,8 +154,6 @@ public class NetworkManager {
             }
         };
         mQueue.add(request);
-        //Log.i("VOLLEY", ""+returnValue[0]);
-        //return returnValue[0];
     }
 
 }
