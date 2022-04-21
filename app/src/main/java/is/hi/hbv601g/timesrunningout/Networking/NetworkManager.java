@@ -2,18 +2,29 @@ package is.hi.hbv601g.timesrunningout.Networking;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import is.hi.hbv601g.timesrunningout.Persistence.Word;
 
@@ -113,4 +124,53 @@ public class NetworkManager {
         );
         mQueue.add(request);
     }
+
+    public void addWords(List<String> words) {
+        for(int i=0;i<words.size();i++) {
+            int finalI = i;
+            StringRequest request = new StringRequest(
+                    Request.Method.POST, BASE_URL + "addWord", response -> { }, error -> { }) {
+                //add parameters to the request
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String,String>();
+                    params.put("word", words.get(finalI));
+                    return params;
+                }
+            };
+            mQueue.add(request);
+        }
+    }
+
+    public void addWord(String word) {
+        // calling a string request method (POST) to post the data to our API
+        StringRequest request = new StringRequest(Request.Method.POST, BASE_URL + "addWord", new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("VOLLEY", "success");
+                //try {
+                    //JSONObject respObj = new JSONObject(response);
+                    //String name = respObj.getString("word");
+                //} catch (JSONException e) {
+                //    e.printStackTrace();
+                //} TODO: delete this
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("VOLLEY", ""+error);
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("word", word);
+
+                // returning our params.
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
+
 }

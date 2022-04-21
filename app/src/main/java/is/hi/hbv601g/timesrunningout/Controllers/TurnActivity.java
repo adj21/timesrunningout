@@ -155,6 +155,7 @@ public class TurnActivity extends AppCompatActivity {
         if (index < mGame.getWords().size()) {
             while (mGame.getGuessed(index)) {//skip words already guessed
                 index++;
+                if(index == mGame.getWords().size()) {break;}
             }
         }
         if (((index >= mGame.getWords().size()) || mTimerFinished) && (!mWordService.isAllGuessed(mGame))) { // if the user has gone trough all words or the timer is finished, but the words are not yet all guessed

@@ -7,13 +7,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import is.hi.hbv601g.timesrunningout.Networking.NetworkCallback;
+import is.hi.hbv601g.timesrunningout.Networking.NetworkManager;
 import is.hi.hbv601g.timesrunningout.Persistence.Game;
+import is.hi.hbv601g.timesrunningout.Persistence.Word;
 import is.hi.hbv601g.timesrunningout.R;
+import is.hi.hbv601g.timesrunningout.Services.WordService;
 
 public class FinalResultActivity extends AppCompatActivity {
 
@@ -21,6 +29,7 @@ public class FinalResultActivity extends AppCompatActivity {
     private SharedPreferences mSharedPref;
     private Game mGame;
     private Button mPlayAgainButton;
+    private static final String TAG = "FinalResultActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +52,12 @@ public class FinalResultActivity extends AppCompatActivity {
         String text = String.format(res.getString(R.string.results), resultOne, resultTwo);
         mTextResult.setText(text);
 
-        //post words if we are in mGame.getCustomGame == true
+        if (mGame.getCustomGame()) {//post words if we are in mGame.getCustomGame == true
+            NetworkManager networkManager = NetworkManager.getInstance(FinalResultActivity.this);
+            for(int i=0; i<mGame.getWords().size();i++) {
+                networkManager.addWord(mGame.getWords().get(i));
+            }
+        }
 
         mPlayAgainButton = (Button) findViewById(R.id.play_again_button);
         mPlayAgainButton.setOnClickListener(new View.OnClickListener() {
