@@ -13,7 +13,6 @@ import android.widget.Button;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import is.hi.hbv601g.timesrunningout.Networking.NetworkCallback;
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mPlayCustomButton;
     private WordService mWordService;
     private Game mGame;
+    private NetworkManager mNetworkManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,33 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                NetworkManager networkManager = NetworkManager.getInstance(MainActivity.this);
-                networkManager.getnWords(4, new NetworkCallback<List<Word>>() {
-                    @Override
-                    public void onSuccess(List<Word> result) {
-                        List<Word> words = result;
-                        Log.d(TAG, "Successfully fetched words.");
-                        List<String> wordsStrings = new ArrayList();
-                        for(Word word : words){
-                            wordsStrings.add(word.getValue());
-                        }
-                        mWordService = new WordService(wordsStrings);
-                        mGame = new Game(mWordService.getWords());
-
-                        SharedPreferences.Editor prefsEditor = mSharedPref.edit();
-                        Gson gson = new Gson();
-                        String json = gson.toJson(mGame); //change the Game object into a String
-                        prefsEditor.putString("Game", json); //put the String into the shared preferences
-                        prefsEditor.commit();
-                        Intent i = new Intent(MainActivity.this, RoundActivity.class);
-                        startActivity(i);
-                    }
-                    @Override
-                    public void onFailure(String errorString) {
-                        Log.e(TAG, "Failed to get words: " + errorString);
-                    }
-                });
+                startGame();
             }
         });
 
@@ -78,19 +52,51 @@ public class MainActivity extends AppCompatActivity {
         mPlayCustomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = MainActivity.this;
-                mSharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-                Game mGame = new Game();//create empty game
+                startCustomGame();
+            }
+        });
+    }
+    private void startGame() {
+        mNetworkManager = NetworkManager.getInstance(MainActivity.this);
+        mNetworkManager.getnWords(4, new NetworkCallback<List<Word>>() {
+            @Override
+            public void onSuccess(List<Word> result) {
+                List<Word> words = result;
+                Log.d(TAG, "Successfully fetched words.");
+                List<String> wordsStrings = new ArrayList();
+                for(Word word : words){
+                    wordsStrings.add(word.getValue());
+                }
+                mWordService = new WordService(wordsStrings);
+                mGame = new Game(mWordService.getWords());
 
                 SharedPreferences.Editor prefsEditor = mSharedPref.edit();
                 Gson gson = new Gson();
                 String json = gson.toJson(mGame); //change the Game object into a String
                 prefsEditor.putString("Game", json); //put the String into the shared preferences
                 prefsEditor.commit();
-
-                Intent i = new Intent(MainActivity.this, SetupActivity.class);
+                Intent i = new Intent(MainActivity.this, RoundActivity.class);
                 startActivity(i);
             }
+            @Override
+            public void onFailure(String errorString) {
+                Log.e(TAG, "Failed to get words: " + errorString);
+            }
         });
+    }
+
+    private void startCustomGame() {
+        Context context = MainActivity.this;
+        mSharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        Game mGame = new Game();//create empty game
+
+        SharedPreferences.Editor prefsEditor = mSharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(mGame); //change the Game object into a String
+        prefsEditor.putString("Game", json); //put the String into the shared preferences
+        prefsEditor.commit();
+
+        Intent i = new Intent(MainActivity.this, SetupActivity.class);
+        startActivity(i);
     }
 }

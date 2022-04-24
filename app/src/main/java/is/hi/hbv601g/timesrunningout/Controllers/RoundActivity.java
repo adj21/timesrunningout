@@ -53,19 +53,15 @@ public class RoundActivity extends AppCompatActivity {
         mStartTurnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(RoundActivity.this, TurnActivity.class);
-                //i.putExtra("is.hi.hbv601g.geoquiz.answer_is_true", answerIsTrue);
-                Log.d("RoundActivity", "I got here");
-                startActivity(i);
-                Log.d("RoundActivity", "I got here");
-                // Toast.makeText(MainActivity.this, R.string.toast_intro, Toast.LENGTH_LONG).show();
-
+                startTurn();
             }
         });
     }
 
-
-
+    private void startTurn() {
+        Intent i = new Intent(RoundActivity.this, TurnActivity.class);
+        startActivity(i);
+    }
 
     private void setRoundText(int i) {
         switch(i) {

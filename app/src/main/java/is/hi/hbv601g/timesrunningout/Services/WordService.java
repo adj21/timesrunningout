@@ -28,7 +28,7 @@ public class WordService {
         return mWords;
     }
 
-    //public boolean isDuplicate(Word word) {} TODO: needed for custom gamemode
+    //public boolean isDuplicate(Word word) {} TODO: needed for custom game mode
 
     public Game setGuessed(int index, Game game) {
         List<Boolean> guessed = game.getGuessed();
@@ -52,7 +52,6 @@ public class WordService {
         return true;
     }
 
-
     public Game setAllUnguessed(Game game) {
         List<String> words = game.getWords();
         List<Boolean> guessed = new ArrayList<Boolean>(Arrays.asList(new Boolean[words.size()]));
@@ -60,11 +59,5 @@ public class WordService {
         game.setGuessed(guessed);
         return game;
     }
-
-    //public String findByID(long ID) {}
-
-    //public Word save(Word word) {} TODO: needed for custom gamemode
-
-    //public void delete(Word word) {} TODO: might be needed
 
 }

@@ -7,21 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import is.hi.hbv601g.timesrunningout.Networking.NetworkCallback;
 import is.hi.hbv601g.timesrunningout.Networking.NetworkManager;
 import is.hi.hbv601g.timesrunningout.Persistence.Game;
-import is.hi.hbv601g.timesrunningout.Persistence.Word;
 import is.hi.hbv601g.timesrunningout.R;
-import is.hi.hbv601g.timesrunningout.Services.WordService;
 
 public class FinalResultActivity extends AppCompatActivity {
 
@@ -32,6 +26,7 @@ public class FinalResultActivity extends AppCompatActivity {
     private TextView mPostText;
     private Button mPostButton;
     private static final String TAG = "FinalResultActivity";
+    private NetworkManager mNetworkManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,46 +64,55 @@ public class FinalResultActivity extends AppCompatActivity {
         mPlayAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(FinalResultActivity.this, MainActivity.class);
-                startActivity(i);
+                endGame();
             }
         });
         mPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NetworkManager networkManager = NetworkManager.getInstance(FinalResultActivity.this);
-                int i;
-                for(i=0; i<mGame.getWords().size()-1;i++) {
-                    networkManager.addWord(mGame.getWords().get(i), new NetworkCallback<String>() {
-                        @Override
-                        public void onSuccess(String result) {
-                        }
-                        @Override
-                        public void onFailure(String errorString) {
-                        }
-                    });
-                }
-                networkManager.addWord(mGame.getWords().get(i), new NetworkCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "Words successfully saved",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-
-                    }
-                    @Override
-                    public void onFailure(String errorString) {
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "there was an error while saving the words",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                });
-
-                mPostText.setVisibility(View.GONE);
-                mPostButton.setVisibility(View.GONE);
+                saveWords();
             }
         });
+    }
+
+    private void endGame() {
+        Intent i = new Intent(FinalResultActivity.this, MainActivity.class);
+        startActivity(i);
+    }
+
+    private void saveWords() {
+        mNetworkManager = NetworkManager.getInstance(FinalResultActivity.this);
+
+        int i;
+        for(i=0; i<mGame.getWords().size()-1;i++) {
+            mNetworkManager.addWord(mGame.getWords().get(i), new NetworkCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                }
+                @Override
+                public void onFailure(String errorString) {
+                }
+            });
+        }
+        mNetworkManager.addWord(mGame.getWords().get(i), new NetworkCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Words successfully saved",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+
+            }
+            @Override
+            public void onFailure(String errorString) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "there was an error while saving the words",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+        mPostText.setVisibility(View.GONE);
+        mPostButton.setVisibility(View.GONE);
     }
 }

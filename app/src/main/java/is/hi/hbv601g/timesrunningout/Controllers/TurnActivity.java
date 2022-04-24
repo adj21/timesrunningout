@@ -40,7 +40,7 @@ public class TurnActivity extends AppCompatActivity {
     private WordService mWordService;
 
     private Game mGame;
-    private int index;
+    private int mCurrentIndex;
     private boolean mCurrentTeam;
 
     @Override
@@ -62,7 +62,7 @@ public class TurnActivity extends AppCompatActivity {
         String json = mSharedPref.getString("Game", "");
         mGame = gson.fromJson(json, Game.class);
         mWordService = new WordService(mGame.getWords());
-        index = mGame.getCurrentIndex();
+        mCurrentIndex = mGame.getCurrentIndex();
         mCurrentTeam = mGame.getCurrentTeam();
 
         mTeamText = findViewById(R.id.team_text);
@@ -73,109 +73,112 @@ public class TurnActivity extends AppCompatActivity {
         mValidateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGame = mWordService.setGuessed(index, mGame);
-                int team;
-                if (!mCurrentTeam) team = 1;
-                else team = 2;
-                mGame.incrementTeamResults(team);
-                index += 1;
-                // save the changed game?
-                displayWord();
+                validate();
             }
         });
 
         mSkipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                index += 1;
-                Log.d("TurnActivity", "I got here index = " + Integer.toString(index));
-                // save the changed game?
-                displayWord();
-                Log.d("TurnActivity", "I got here index = " + Integer.toString(index));
+                skip();
             }
         });
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TurnActivity", "next: team = " + mCurrentTeam);
-                mNextButton.setVisibility(View.GONE);
-                mSkipButton.setVisibility(View.VISIBLE);
-                mValidateButton.setVisibility(View.VISIBLE);
-                mCountdownText.setVisibility(View.VISIBLE);
-                mWord.setVisibility(View.VISIBLE);
-                mCountDownTimer.cancel();
-                startTimer();
-                displayWord();
+                nextPlayer();
             }
         });
 
     }
-        public void startTimer() {
-            mTimerFinished = false;
-            mTimeLeft = 30000;
-            mCountDownTimer = new CountDownTimer(mTimeLeft, 1000) {
-                @Override
-                public void onTick(long l) {
-                    mTimeLeft = l;
-                    updateTimer();
-                }
 
-                @Override
-                public void onFinish() {
-                    mNextButton.setVisibility(View.VISIBLE);
-                    mSkipButton.setVisibility(View.GONE);
-                    mValidateButton.setVisibility(View.GONE);
-                    mWord.setVisibility(View.GONE);
-                    mCountdownText.setVisibility(View.GONE);
-                    mTimerFinished = true;
-                    mCountDownTimer.cancel();
+    private void skip() {
+        mCurrentIndex += 1;
+        displayWord();
+    }
 
-                    mCurrentTeam = !mCurrentTeam; //change current team
-                    setTeamText();//change team displayed
-                }
-            }.start();
+    private void validate() {
+        mGame = mWordService.setGuessed(mCurrentIndex, mGame);
+        int team;
+        if (!mCurrentTeam) team = 1;
+        else team = 2;
+        mGame.incrementTeamResults(team);
+        mCurrentIndex += 1;
+        displayWord();
+    }
 
-            //mTimerRunning = true;
-        }
+    private void nextPlayer() {
+        Log.d("TurnActivity", "next: team = " + mCurrentTeam);
+        mNextButton.setVisibility(View.GONE);
+        mSkipButton.setVisibility(View.VISIBLE);
+        mValidateButton.setVisibility(View.VISIBLE);
+        mCountdownText.setVisibility(View.VISIBLE);
+        mWord.setVisibility(View.VISIBLE);
+        mCountDownTimer.cancel();
+        startTimer();
+        displayWord();
+    }
 
-        public void updateTimer () {
-            int seconds = (int) mTimeLeft / 1000;
+    public void startTimer() {
+        mTimerFinished = false;
+        mTimeLeft = 30000;
+        mCountDownTimer = new CountDownTimer(mTimeLeft, 1000) {
+            @Override
+            public void onTick(long l) {
+                mTimeLeft = l;
+                updateTimer();
+            }
+             @Override
+             public void onFinish() {
+                mNextButton.setVisibility(View.VISIBLE);
+                mSkipButton.setVisibility(View.GONE);
+                mValidateButton.setVisibility(View.GONE);
+                mWord.setVisibility(View.GONE);
+                mCountdownText.setVisibility(View.GONE);
+                mTimerFinished = true;
+                mCountDownTimer.cancel();
 
-            String mTimeLeftText = "";
+                mCurrentTeam = !mCurrentTeam; //change current team
+                 setTeamText();//change team displayed
+            }
+        }.start();
+    }
 
-            if (seconds < 10) mTimeLeftText += "";
-            mTimeLeftText += seconds;
+    public void updateTimer () {
+        int seconds = (int) mTimeLeft / 1000;
 
-            mCountdownText.setText(mTimeLeftText);
-        }
+        String mTimeLeftText = "";
+
+        if (seconds < 10) mTimeLeftText += "";
+        mTimeLeftText += seconds;
+
+        mCountdownText.setText(mTimeLeftText);
+    }
 
     private void displayWord() {
-        //displayGuessed();
-        if (index < mGame.getWords().size()) {
-            while (mGame.getGuessed(index)) {//skip words already guessed
-                index++;
-                if(index == mGame.getWords().size()) {break;}
+        if (mCurrentIndex < mGame.getWords().size()) {
+            while (mGame.getGuessed(mCurrentIndex)) {//skip words already guessed
+                mCurrentIndex++;
+                if(mCurrentIndex == mGame.getWords().size()) {break;}
             }
         }
-        if (((index >= mGame.getWords().size()) || mTimerFinished) && (!mWordService.isAllGuessed(mGame))) { // if the user has gone trough all words or the timer is finished, but the words are not yet all guessed
-            Log.d("TurnActivity", "I got here into the >4 index = " + Integer.toString(index));
+        if (((mCurrentIndex >= mGame.getWords().size()) || mTimerFinished) && (!mWordService.isAllGuessed(mGame))) { // if the user has gone trough all words or the timer is finished, but the words are not yet all guessed
             mNextButton.setVisibility(View.VISIBLE);
             mSkipButton.setVisibility(View.GONE);
             mValidateButton.setVisibility(View.GONE);
             mWord.setVisibility(View.GONE);
             mCountdownText.setVisibility(View.GONE);
-            //displayGuessed();
 
-            index = 0;//restart index for next player
-            while (mGame.getGuessed(index)) {//skip words already guessed
-                index++;
+            mCurrentIndex = 0;//restart index for next player
+            while (mGame.getGuessed(mCurrentIndex)) {//skip words already guessed
+                mCurrentIndex++;
             }
             mCurrentTeam = !mCurrentTeam; //change current team
             setTeamText();//change team displayed
         }
-        else if((index < mGame.getWords().size()) && (!mWordService.isAllGuessed(mGame)) && !mTimerFinished) { //if the words are not finished and not all guessed and the timer is still ticking
-            mWord.setText(mGame.getWord(index)); //display new word
+        else if((mCurrentIndex < mGame.getWords().size()) && (!mWordService.isAllGuessed(mGame)) && !mTimerFinished) { //if the words are not finished and not all guessed and the timer is still ticking
+            mWord.setText(mGame.getWord(mCurrentIndex)); //display new word
         }
         else if (mWordService.isAllGuessed(mGame)) {//if the words are all guessed
 
@@ -206,15 +209,6 @@ public class TurnActivity extends AppCompatActivity {
     private void setTeamText() {
         if (!mCurrentTeam) mTeamText.setText(R.string.team_1);
         else mTeamText.setText(R.string.team_2);
-        Log.d("TurnActivity", "team = " + mCurrentTeam);
-    }
-
-    private void displayGuessed() {
-        String guessed = "";
-        for(int j = 0; j<mGame.getGuessed().size();j++) {
-            guessed = guessed + Boolean.toString(mGame.getGuessed(j)) + " ";
-        }
-        Log.d("TurnActivity", guessed);
     }
 
 }

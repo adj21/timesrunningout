@@ -51,9 +51,6 @@ public class SetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
 
-        Gson gson = new Gson();
-        String json = mSharedPref.getString("Game", "");
-        Resources res = getResources();
         mWordCount = 5;
 
         mNextWordButton = (Button) findViewById(R.id.nextWord);
@@ -71,19 +68,7 @@ public class SetupActivity extends AppCompatActivity {
         mNrPlayersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                savePlayerCount();//not sure if this is helpful
-                mNrPlayersButton.setVisibility(View.GONE);
-                mPlayerTextField.setVisibility(View.GONE);
-                String text = String.format(res.getString(R.string.playersleft), mPlayerCount);
-                mPlayersLeft.setText(text);
-                mPlayersLeft.setVisibility(View.VISIBLE);
-                mWordsLeft.setVisibility(View.VISIBLE);
-
-                mNextWordButton.setVisibility(View.VISIBLE);
-
-                String text2 = String.format(res.getString(R.string.wordsleft), mWordCount);
-                mWordsLeft.setText(text2);
-                mWordTextField.setVisibility(View.VISIBLE);
+                savePlayerCount();
             }
         });
 
@@ -91,71 +76,83 @@ public class SetupActivity extends AppCompatActivity {
         mNextWordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mWordCount--;
-                if(mWordCount > 0 && mPlayerCount > 0) {
-                    String text2 = String.format(res.getString(R.string.wordsleft), mWordCount);
-                    mWordsLeft.setText(text2);
-                    String word = mWordTextField.getText().toString();
-
-                    //save word
-                    mWords.add(word);
-                    mWordTextField.setText("");
-                }
-                else if(mWordCount == 0 && mPlayerCount > 1) {
-                    //save word
-                    String word = mWordTextField.getText().toString();
-                    mWords.add(word);
-
-                    Toast toast = Toast.makeText(SetupActivity.this, R.string.toast_passDevice, Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.TOP, 0, 0);
-                    toast.show();
-                    mPlayerCount --;
-                    String text = String.format(res.getString(R.string.playersleft), mPlayerCount);
-                    mPlayersLeft.setText(text);
-                    mWordCount = 5;
-                    String text2 = String.format(res.getString(R.string.wordsleft), mWordCount);
-                    mWordsLeft.setText(text2);
-                    mWordTextField.setText("");
-                }
-                else {
-                    //save word
-                    String word = mWordTextField.getText().toString();
-                    mWords.add(word);
-
-                    Context context = SetupActivity.this;
-                    mSharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-
-                    //retrieve game
-                    Gson gson = new Gson();
-                    String json = mSharedPref.getString("Game", "");
-                    mGame = gson.fromJson(json, Game.class);
-                    //add words and guessed to game
-                    mGame.setWords(mWords);
-                    mWordService = new WordService(mWords);;
-                    mWordService.setAllUnguessed(mGame);
-
-                    //save game to shared preferences
-                    SharedPreferences.Editor prefsEditor = mSharedPref.edit();
-                    json = gson.toJson(mGame); //change the new Game object into a String
-                    prefsEditor.putString("Game", json); //put the String into the shared preferences
-                    prefsEditor.commit();
-
-                    Intent i = new Intent(SetupActivity.this, RoundActivity.class);
-                    startActivity(i);
-                }
+                savePlayerWord();
             }
         });
     }
 
     private void savePlayerCount() {
         mPlayerCount = Integer.parseInt(mPlayerTextField.getText().toString());
+        mNrPlayersButton.setVisibility(View.GONE);
+        mPlayerTextField.setVisibility(View.GONE);
+        String text = String.format(getResources().getString(R.string.playersleft), mPlayerCount);
+        mPlayersLeft.setText(text);
+        mPlayersLeft.setVisibility(View.VISIBLE);
+        mWordsLeft.setVisibility(View.VISIBLE);
+
+        mNextWordButton.setVisibility(View.VISIBLE);
+
+        String text2 = String.format(getResources().getString(R.string.wordsleft), mWordCount);
+        mWordsLeft.setText(text2);
+        mWordTextField.setVisibility(View.VISIBLE);
     }
 
     private void savePlayerWord() {
-        //TODO: make it work
+        mWordCount--;
+        if(mWordCount > 0 && mPlayerCount > 0) {
+            String text2 = String.format(getResources().getString(R.string.wordsleft), mWordCount);
+            mWordsLeft.setText(text2);
+            String word = mWordTextField.getText().toString();
+
+            //save word
+            mWords.add(word);
+            mWordTextField.setText("");
+        }
+        else if(mWordCount == 0 && mPlayerCount > 1) {
+            //save word
+            String word = mWordTextField.getText().toString();
+            mWords.add(word);
+
+            Toast toast = Toast.makeText(SetupActivity.this, R.string.toast_passDevice, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP, 0, 0);
+            toast.show();
+            mPlayerCount --;
+            String text = String.format(getResources().getString(R.string.playersleft), mPlayerCount);
+            mPlayersLeft.setText(text);
+            mWordCount = 5;
+            String text2 = String.format(getResources().getString(R.string.wordsleft), mWordCount);
+            mWordsLeft.setText(text2);
+            mWordTextField.setText("");
+        }
+        else {
+            //save word
+            String word = mWordTextField.getText().toString();
+            mWords.add(word);
+            next();
+        }
     }
 
     private void next() {
-        //TODO: make it work
+        Context context = SetupActivity.this;
+        mSharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        //retrieve game
+        Gson gson = new Gson();
+        String json = mSharedPref.getString("Game", "");
+        mGame = gson.fromJson(json, Game.class);
+        //add words and guessed to game
+        mGame.setWords(mWords);
+        mWordService = new WordService(mWords);;
+        mWordService.setAllUnguessed(mGame);
+
+        //save game to shared preferences
+        SharedPreferences.Editor prefsEditor = mSharedPref.edit();
+        json = gson.toJson(mGame); //change the new Game object into a String
+        prefsEditor.putString("Game", json); //put the String into the shared preferences
+        prefsEditor.commit();
+
+        Intent i = new Intent(SetupActivity.this, RoundActivity.class);
+        startActivity(i);
     }
+
 }
